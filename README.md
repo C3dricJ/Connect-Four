@@ -19,8 +19,8 @@ A fully functional Connect Four game built for a **Crestron 3-Series control pro
 ## Requirements
 
 - Crestron 3-Series control processor (e.g., CP3, AV3, PRO3)
-- [SIMPL Windows](https://www.crestron.com) (for editing/compiling `Connect4.smw`)
-- [VTPro-e](https://www.crestron.com) (for editing/compiling `Connect4.vtp`)
+- [SIMPL Windows]([https://www.crestron.com](https://www.crestron.com/Products/Catalog/Control-and-Management/Software/Programming-Commissioning/SW-SIMPL)) (for editing/compiling `Connect4.smw`)
+- [VTPro-e]([https://www.crestron.com](https://www.crestron.com/Products/Catalog/Control-and-Management/Software/Programming-Commissioning/SW-VTPRO-E)) (for editing/compiling `Connect4.vtp`)
 - SIMPL+ compiler (included with SIMPL Windows)
 - Crestron Toolbox (for loading programs to the processor and touch panel)
 - Compatible Crestron touch panel
