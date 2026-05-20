@@ -51,10 +51,10 @@ A fully functional Connect Four game built for a **Crestron 3-Series control pro
 ## How to Play
 
 1. The game is displayed on the connected Crestron touch panel.
-2. Two players take turns — Player 1 and Player 2.
+2. Player 1 and Player 2 take turns.
 3. On your turn, tap a column button on the touch panel to drop your piece into that column.
 4. Pieces fall to the lowest available row in the selected column.
-5. The first player to connect four pieces in a row horizontally, vertically, or diagonally — wins!
+5. You win by being the first player to connect four pieces in a row horizontally, vertically, or diagonally!
 6. If all columns are filled with no winner, the game ends in a draw.
 7. A Reset button is available on the UI to start a new game at any time.
 
