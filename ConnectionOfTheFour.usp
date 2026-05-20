@@ -1,0 +1,824 @@
+//	ConnectionOfTheFour
+//	Written by : Cedric
+
+#CATEGORY "46" "Connect4" 	// Custom
+#ENABLE_TRACE 				// Turn on the trace statements in code
+
+//	Inputs & Outputs
+Digital_Input NewGame, ClearScore;
+Digital_Input Button1, Button2, Button3, Button4, Button5, Button6, Button7, _skip_, _skip_;
+
+Digital_Output PlayerTurn1, PlayerTurn2, ButtonState1, ButtonState2, ButtonState3, ButtonState4, ButtonState5, ButtonState6, ButtonState7, _skip_, WinCondition, Tie, _skip_;
+Digital_Output Yellow[42], _skip_, Red[42], _skip_, _skip_;
+
+//Statistics - inputs/outputs
+String_Output Player1_W;		//string of content for the amount of wins for player 1 (Red)
+String_Output Player1_L;		//string of content for the amount of loses for player 1 (Red)
+String_Output Player1_T;		//string of content for the amount of ties for player 1 (Red)
+
+String_Output Player2_W;		//string of content for the amount of wins for player 2 (Yellow)
+String_Output Player2_L;		//string of content for the amount of loses for player 2 (Yellow)
+String_Output Player2_T;		//string of content for the amount of ties for player 2 (Yellow)
+
+ 
+
+
+//	Globals
+Integer TurnCounter;			//counter used to denote what player's turn it is
+Integer FortyTwo;     			//global counter used to loop through the entire Connect-4 board 
+Integer Counter_Player1_W;      //holder later used to convert a string of player 1's wins from an integer
+Integer Counter_Player1_L;      //holder later used to convert a string of player 1's loses from an integer
+Integer Counter_Player1_T;      //holder later used to convert a string of player 1's ties from an integer
+Integer Counter_Player2_W;      //holder later used to convert a string of player 2's wins from an integer
+Integer Counter_Player2_L;      //holder later used to convert a string of player 2's loses from an integer
+Integer Counter_Player2_T;      //holder later used to convert a string of player 2's ties from an integer
+
+Function CheckWin()
+{
+	integer i;	//placeholder used to cycle through every position on the board
+	integer a;	//counter is used to check if the first column is filled out - cross checking with the left diagonal  
+	integer b;	//used to check the next row on the board
+	
+
+	i = 1; 
+	b = 1;	
+	a = 7;	 
+	
+	
+	while(i < 43)
+	{
+		print("currently i = %i\n", i);
+		
+		
+if(i % 7 = (i+7) % 7 ) //limits the position of where the vertical is being checked
+{	
+		if(Red[i] = 1 && Red[i+7] = 1 && Red[i+14] = 1 && Red[i+21] = 1)   //check statements for vertical victory for red
+		{
+			WinCondition = 1; 
+			Counter_Player1_W = Counter_Player1_W + 1;
+			Counter_Player2_L = Counter_Player2_L + 1;
+		 	
+			ButtonState1 = 0;
+			ButtonState2 = 0;
+			ButtonState3 = 0;
+			ButtonState4 = 0;
+			ButtonState5 = 0;
+			ButtonState6 = 0;
+			ButtonState7 = 0;
+			
+			print("\nvertical red when i = %i\n", i);			 	
+		}
+		else if(Yellow[i] = 1 && Yellow[i+7] = 1 && Yellow[i+14] = 1 && Yellow[i+21] = 1)    //check statements for vertical victory for yellow
+		{
+		 	WinCondition = 1; 
+		 	Counter_Player2_W = Counter_Player2_W + 1;
+		 	Counter_Player1_L = Counter_Player1_L + 1;
+		 	
+	 		ButtonState1 = 0;
+			ButtonState2 = 0;
+			ButtonState3 = 0;
+			ButtonState4 = 0;
+			ButtonState5 = 0;
+			ButtonState6 = 0;
+			ButtonState7 = 0;
+			
+			print("\nvertical yellow when i = %i\n", i);			
+		} 
+}
+
+   
+			
+			
+if(i % 7 <= 4) //limits the position of where the right diagonal is being checked
+{		
+		if(Red[i] = 1 && Red[i+8] = 1 && Red[i+16] = 1 && Red[i+24] = 1)   //check statements for diagonal right victory for red
+		{
+		 	WinCondition = 1; 
+		 	Counter_Player1_W = Counter_Player1_W + 1;
+		 	Counter_Player2_L = Counter_Player2_L + 1;
+		 	
+	 		ButtonState1 = 0;
+			ButtonState2 = 0;
+			ButtonState3 = 0;
+			ButtonState4 = 0;
+			ButtonState5 = 0;
+			ButtonState6 = 0;
+			ButtonState7 = 0;
+			
+			print("\ndiagonal right red when i = %i\n", i);			 	
+		}
+		else if(Yellow[i] = 1 && Yellow[i+8] = 1 && Yellow[i+16] = 1 && Yellow[i+24] = 1)    //check statements for diagonal right victory for yellow
+		{
+	 		WinCondition = 1; 
+	 		Counter_Player2_W = Counter_Player2_W + 1;
+	 		Counter_Player1_L = Counter_Player1_L + 1;
+		 	
+	 		ButtonState1 = 0;
+			ButtonState2 = 0;
+			ButtonState3 = 0;
+			ButtonState4 = 0;
+			ButtonState5 = 0;
+			ButtonState6 = 0;
+			ButtonState7 = 0;
+			
+			print("\ndiagonal right when i = %i\n", i);			
+		}
+}
+
+
+
+
+		if(i % 7 <= 4) //limits the position of where the horizontal is being checked
+		{
+			if(i % 7 = 0)
+			{
+			 	//this represents i is in the right most column - don't check for horizontals in the next row
+			}
+			else if(Red[i] = 1 && Red[i+1] = 1 && Red[i+2] = 1 && Red[i+3] = 1)   //check statements for horizontal victory for red
+			{
+			 	WinCondition = 1; 
+			 	Counter_Player1_W = Counter_Player1_W + 1;
+			 	Counter_Player2_L = Counter_Player2_L + 1;
+			 	
+			 	ButtonState1 = 0;
+				ButtonState2 = 0;
+				ButtonState3 = 0;
+				ButtonState4 = 0;
+				ButtonState5 = 0;
+				ButtonState6 = 0;
+				ButtonState7 = 0;
+				
+				print("\nhorizontal red when i = %i\n", i);
+
+			 	
+			}
+			else if(Yellow[i] = 1 && Yellow[i+1] = 1 && Yellow[i+2] = 1 && Yellow[i+3] = 1)    //check statements for horizontal victory for yellow
+			{
+			 	WinCondition = 1; 
+			 	Counter_Player2_W = Counter_Player2_W + 1;
+			 	Counter_Player1_L = Counter_Player1_L + 1;
+			 	
+			 	ButtonState1 = 0;
+				ButtonState2 = 0;
+				ButtonState3 = 0;
+				ButtonState4 = 0;
+				ButtonState5 = 0;
+				ButtonState6 = 0;
+				ButtonState7 = 0;
+				
+				print("\nhorizontal yellow when i = %i\n", i);
+			
+			}
+					
+		}
+      
+		if(i % 7 >= 4) //limits the position of where the left diagonal is being checked
+		{
+			if(Red[i] = 1 && Red[i+6] = 1 && Red[i+12] = 1 && Red[i+18] = 1)   //check statements for diagonal left victory for red
+			{
+			 	WinCondition = 1; 
+			 	Counter_Player1_W = Counter_Player1_W + 1;
+			 	Counter_Player2_L = Counter_Player2_L + 1;
+		 	
+			 	ButtonState1 = 0;
+				ButtonState2 = 0;
+				ButtonState3 = 0;
+				ButtonState4 = 0;
+				ButtonState5 = 0;
+				ButtonState6 = 0;
+				ButtonState7 = 0;
+			
+				print("\ndiagonal left red when i = %i\n", i);			 	
+			}
+			else if(Yellow[i] = 1 && Yellow[i+6] = 1 && Yellow[i+12] = 1 && Yellow[i+18] = 1)    //check statements for diagonal left victory for yellow
+			{
+			 	WinCondition = 1; 
+			 	Counter_Player2_W = Counter_Player2_W + 1;
+			 	Counter_Player1_L = Counter_Player1_L + 1;
+		 	
+			 	ButtonState1 = 0;
+				ButtonState2 = 0;
+				ButtonState3 = 0;
+				ButtonState4 = 0;
+				ButtonState5 = 0;
+				ButtonState6 = 0;
+				ButtonState7 = 0;
+			
+				print("\ndiagonal left yellow when i = %i\n", i);			
+			}
+		}
+			
+			
+		i = i + 1;			
+	}
+		
+	//following lines of code shows converting an integer into a string
+	Player2_W = itoa(Counter_Player2_W); 
+    Player1_W = itoa(Counter_Player1_W);
+    Player2_L = itoa(Counter_Player2_L);
+    Player1_L = itoa(Counter_Player1_L);			 
+
+				
+}  
+
+
+
+Function CheckTie()
+{
+ 	integer counter; //counter is used keep track of how many spots are taken through the Connect-4 board
+ 	counter = 0;
+ 	FortyTwo = 0;
+ 	
+ 	
+	While(FortyTwo < 43)									//looping through the whole board checking if the entire board is filled
+	{
+		if(Yellow[FortyTwo] = 1 || Red[FortyTwo] = 1) 	
+		{
+			counter = counter + 1;
+		}
+		FortyTwo = FortyTwo + 1;
+	}
+	
+	if(counter = 43)										//after checking the entire board and if it is entirely filled and no one won then it is a tie
+	{
+		Counter_Player1_T = Counter_Player1_T + 1;
+		Counter_Player2_T = Counter_Player2_T + 1;
+		counter = 0;
+		Tie = 1;	 		
+	}
+	                                                                   
+	                                                                   
+	//following lines of code shows converting an integer into a string
+    Player2_T = itoa(Counter_Player2_T);
+    Player1_T = itoa(Counter_Player1_T);
+}
+
+
+//	Events
+Push NewGame
+{
+	FortyTwo = 0;
+	WinCondition = 0;
+	Tie = 0;
+	
+	//buttons are now clickable
+	ButtonState1 = 1;
+	ButtonState2 = 1;
+	ButtonState3 = 1;
+	ButtonState4 = 1;
+	ButtonState5 = 1;
+	ButtonState6 = 1;
+	ButtonState7 = 1;
+	
+
+	While(FortyTwo < 43)
+	{
+		Yellow[FortyTwo] = 0;
+		Red[FortyTwo] = 0;	 
+	 	FortyTwo = FortyTwo + 1;
+	} 
+	 
+    FortyTwo = 0;
+}
+
+Push ClearScore
+{
+	//resetting all the strings and the counters to 0
+	
+	Player1_W = "0";
+	Player1_L = "0";
+	Player1_T = "0";
+	
+	Player2_W = "0";
+	Player2_L = "0";
+	Player2_T = "0";
+	
+	Counter_Player1_W = 0;
+	Counter_Player1_L = 0;
+	Counter_Player1_T = 0;
+	Counter_Player2_W = 0;
+	Counter_Player2_L = 0;
+	Counter_Player2_T = 0;
+	
+}
+
+Push Button1
+{
+	integer i;
+	
+	If(WinCondition = 1)    						//if someone won then disable all the buttons making them unclickable
+	{
+		ButtonState1 = 0;
+		ButtonState2 = 0;
+		ButtonState3 = 0;
+		ButtonState4 = 0;
+		ButtonState5 = 0;
+		ButtonState6 = 0;
+		ButtonState7 = 0;
+				 	
+	}
+	else											//if no one has won yet then do the following
+	{
+
+	If(TurnCounter % 2 = 0)							//turn counter used to determine that it is player 1 or red's turn
+	{													
+		PlayerTurn1 = 0;                            //results from the modulus where player1 is even numbers and player2 is odd numbers
+		PlayerTurn2 = 1;
+
+				
+		For(i = 1 to 36)							//looping through 1 to 36, where 1 is the first column from the left
+		{											//where 36 is the highest in position in the first column at the top row
+		 
+		
+			If(Red[i] = 1 || Yellow[i] = 1)			//if the position is already filled and unvailable then increment to the next available spot
+			{
+				i = i + 6;
+			}
+			else									//if the position is available then fill the spot with one of red's pieces
+			{
+				Red[i] = 1;
+				Yellow[i] = 0;
+				break;		 	
+			}
+									
+		}		
+	}
+	else											//turn counter used to determine that it is player2 or yellow's turn			
+	{
+		PlayerTurn1 = 1;
+		PlayerTurn2 = 0;
+
+		For(i = 1 to 36)							//looping through 1 to 36, where 36 is the highest in position in the first column at the top row 
+		{
+			If(Yellow[i] = 1 || Red[i] = 1)			//if the position is already filled and unvailable then increment to the next available spot			
+			{
+				i = i + 6;
+			}
+			else									//if the position is available then fill the spot with one of yellow's pieces
+			{
+				Yellow[i] = 1;
+				Red[i] = 0;
+				break;	 	
+			}
+									
+		}		
+	} 
+		
+	
+	TurnCounter = TurnCounter + 1;					//increment the turn counter  
+	
+	}
+
+	CheckWin();										//calling the checkwin function to see if anyone has won
+	CheckTie();										//calling the checktie function to see if anyone has tied
+			 	
+}
+
+Push Button2										//programatically mirrored with button 1 with slight changes to the position on the board
+{
+	integer i;
+	
+	If(WinCondition = 1)
+	{
+		ButtonState1 = 0;
+		ButtonState2 = 0;
+		ButtonState3 = 0;
+		ButtonState4 = 0;
+		ButtonState5 = 0;
+		ButtonState6 = 0;
+		ButtonState7 = 0;
+				 	
+	}
+	else
+	{
+
+	If(TurnCounter % 2 = 0)
+	{
+		PlayerTurn1 = 0;
+		PlayerTurn2 = 1;
+		
+		
+		//looping through 2 to 37, where 2 is the second column from the left and 37 is the highest in position in the second column at the top row		
+		For(i = 2 to 37)							
+		{																
+		
+			If(Red[i] = 1 || Yellow[i] = 1)
+			{
+				i = i + 6;
+			}
+			else
+			{
+				Red[i] = 1;
+				Yellow[i] = 0;
+				break;
+			 	
+			}
+									
+		}		
+	}
+	else
+	{
+		PlayerTurn1 = 1;
+		PlayerTurn2 = 0;
+		
+		For(i = 2 to 37)
+		{
+			If(Yellow[i] = 1 || Red[i] = 1)
+			{
+				i = i + 6;
+			}
+			else
+			{
+				Yellow[i] = 1;
+				Red[i] = 0;
+				break;			 	
+			}
+									
+		}		
+	} 
+		
+	
+	TurnCounter = TurnCounter + 1;
+	
+	} 
+	
+	CheckWin();
+	CheckTie();
+}
+
+Push Button3
+{
+	integer i;
+	
+	If(WinCondition = 1)
+	{
+		ButtonState1 = 0;
+		ButtonState2 = 0;
+		ButtonState3 = 0;
+		ButtonState4 = 0;
+		ButtonState5 = 0;
+		ButtonState6 = 0;
+		ButtonState7 = 0;
+				 	
+	}
+	else
+	{
+
+
+	If(TurnCounter % 2 = 0)
+	{
+		PlayerTurn1 = 0;
+		PlayerTurn2 = 1;		
+        
+        //looping through 3 to 38, where 3 is the third column from the left and 38 is the highest in position in the third column at the top row
+		For(i = 3 to 38)
+		{
+			If(Red[i] = 1 || Yellow[i] = 1)
+			{
+				i = i + 6;
+			}
+			else
+			{
+				Red[i] = 1;
+				Yellow[i] = 0;
+				break;	 	
+			}
+									
+		}
+ 		
+	}
+	else
+	{
+		PlayerTurn1 = 1;
+		PlayerTurn2 = 0;
+
+		For(i = 3 to 38)
+		{
+			If(Yellow[i] = 1 || Red[i] = 1)
+			{
+				i = i + 6;
+			}
+			else
+			{
+				Yellow[i] = 1;
+				Red[i] = 0;
+				break;	 	
+			}
+									
+		}		
+	} 
+		
+	
+	TurnCounter = TurnCounter + 1; 
+	
+	}
+
+	CheckWin();
+	CheckTie();
+}
+
+Push Button4
+{
+	integer i;
+
+	If(WinCondition = 1)
+	{
+		ButtonState1 = 0;
+		ButtonState2 = 0;
+		ButtonState3 = 0;
+		ButtonState4 = 0;
+		ButtonState5 = 0;
+		ButtonState6 = 0;
+		ButtonState7 = 0;
+				 	
+	}
+	else
+	{
+
+
+	If(TurnCounter % 2 = 0)
+	{
+		PlayerTurn1 = 0;
+		PlayerTurn2 = 1;
+		
+		//looping through 4 to 39, where 4 is the fourth column from the left and 39 is the highest in position in the fourth column at the top row		
+		For(i = 4 to 39)
+		{
+			If(Red[i] = 1 || Yellow[i] = 1)
+			{
+				i = i + 6;
+			}
+			else
+			{
+				Red[i] = 1;
+				Yellow[i] = 0;
+				break; 	
+			}
+									
+		}		
+	}
+	else
+	{
+		PlayerTurn1 = 1;
+		PlayerTurn2 = 0;
+
+		For(i = 4 to 39)
+		{
+			If(Yellow[i] = 1 || Red[i] = 1)
+			{
+				i = i + 6;
+			}
+			else
+			{
+				Yellow[i] = 1;
+				Red[i] = 0;
+				break; 	
+			}
+									
+		}		
+	} 
+		
+	
+	TurnCounter = TurnCounter + 1;
+	
+	}
+	
+	CheckWin();
+	CheckTie();
+}
+
+Push Button5
+{
+	integer i;
+
+	If(WinCondition = 1)
+	{
+		ButtonState1 = 0;
+		ButtonState2 = 0;
+		ButtonState3 = 0;
+		ButtonState4 = 0;
+		ButtonState5 = 0;
+		ButtonState6 = 0;
+		ButtonState7 = 0;
+				 	
+	}
+	else
+	{
+
+	
+	If(TurnCounter % 2 = 0)
+	{
+		PlayerTurn1 = 0;
+		PlayerTurn2 = 1;
+		
+		//looping through 5 to 40, where 5 is the fifth column from the left and 40 is the highest in position in the fifth column at the top row		
+		For(i = 5 to 40)
+		{
+			If(Red[i] = 1 || Yellow[i] = 1)
+			{
+				i = i + 6;
+			}
+			else
+			{
+				Red[i] = 1;
+				Yellow[i] = 0;
+				break; 	
+			}
+									
+		}		
+	}
+	else
+	{
+		PlayerTurn1 = 1;
+		PlayerTurn2 = 0;
+
+		For(i = 5 to 40)
+		{
+			If(Yellow[i] = 1 || Red[i] = 1)
+			{
+				i = i + 6;
+			}
+			else
+			{
+				Yellow[i] = 1;
+				Red[i] = 0;
+				break;	
+			}
+									
+		}		
+	} 
+		
+	
+	TurnCounter = TurnCounter + 1;
+	
+	}
+
+	CheckWin();
+	CheckTie();
+}
+
+Push Button6
+{
+	integer i;
+	
+	If(WinCondition = 1)
+	{
+		ButtonState1 = 0;
+		ButtonState2 = 0;
+		ButtonState3 = 0;
+		ButtonState4 = 0;
+		ButtonState5 = 0;
+		ButtonState6 = 0;
+		ButtonState7 = 0;
+				 	
+	}
+	else
+	{
+
+
+	If(TurnCounter % 2 = 0)
+	{
+		PlayerTurn1 = 0;
+		PlayerTurn2 = 1;
+		
+		//looping through 6 to 41, where 6 is the sixth column from the left and 41 is the highest in position in the sixth column at the top row		
+		For(i = 6 to 41)
+		{
+			If(Red[i] = 1 || Yellow[i] = 1)
+			{
+				i = i + 6;
+			}
+			else
+			{
+				Red[i] = 1;
+				Yellow[i] = 0;
+				break;	 	
+			}
+									
+		}		
+	}
+	else
+	{
+		PlayerTurn1 = 1;
+		PlayerTurn2 = 0;
+		
+		For(i = 6 to 41)
+		{
+			If(Yellow[i] = 1 || Red[i] = 1)
+			{
+				i = i + 6;
+			}
+			else
+			{
+				Yellow[i] = 1;
+				Red[i] = 0;
+				break;	 	
+			}
+									
+		}		
+	} 
+		
+	
+	TurnCounter = TurnCounter + 1;  
+	
+	}
+	
+	CheckWin();
+	CheckTie();
+}
+
+Push Button7
+{
+	integer i;
+	
+	If(WinCondition = 1)
+	{
+		ButtonState1 = 0;
+		ButtonState2 = 0;
+		ButtonState3 = 0;
+		ButtonState4 = 0;
+		ButtonState5 = 0;
+		ButtonState6 = 0;
+		ButtonState7 = 0;
+				 	
+	}
+	else
+	{
+
+
+	If(TurnCounter % 2 = 0)
+	{
+		PlayerTurn1 = 0;
+		PlayerTurn2 = 1;
+		
+		//looping through 7 to 42, where 7 is the seventh column from the left and 42 is the highest in position in the seventh column at the top row		
+		For(i = 7 to 42)
+		{
+			If(Red[i] = 1 || Yellow[i] = 1)
+			{
+				i = i + 6;
+			}
+			else
+			{
+				Red[i] = 1;
+				Yellow[i] = 0;
+				break;		 	
+			}
+									
+		}		
+	}
+	else
+	{
+		PlayerTurn1 = 1;
+		PlayerTurn2 = 0;
+
+		For(i = 7 to 42)
+		{
+			If(Yellow[i] = 1 || Red[i] = 1)
+			{
+				i = i + 6;
+			}
+			else
+			{
+				Yellow[i] = 1;
+				Red[i] = 0;
+				break;			 	
+			}
+									
+		}		
+	} 
+		
+	
+	TurnCounter = TurnCounter + 1; 
+	
+	}
+	
+	CheckWin();
+	CheckTie();
+}
+
+
+
+
+Function Main()
+{
+	//when program starts the following signals are defaulted
+	PlayerTurn1 = 1;
+	PlayerTurn2 = 0;
+	
+	ButtonState1 = 1;
+	ButtonState2 = 1;
+	ButtonState3 = 1;
+	ButtonState4 = 1;
+	ButtonState5 = 1;
+	ButtonState6 = 1;
+	ButtonState7 = 1; 
+	
+	Player1_W = "0";
+	Player1_L = "0";
+	Player1_T = "0";
+	
+	Player2_W = "0";
+	Player2_L = "0";
+	Player2_T = "0";	
+}                                                                   
