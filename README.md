@@ -1,6 +1,7 @@
 # Connect4 Crestron Based Project
 
 A fully functional Connect Four game built for a **Crestron 3-Series control processor**, programmed in SIMPL Windows and SIMPL+.
+<img width="795" height="646" alt="image" src="https://github.com/user-attachments/assets/a5fce3db-af9b-4a64-bf80-c3a77d1f951e" />
 <img width="799" height="647" alt="image" src="https://github.com/user-attachments/assets/82edc808-399d-4f74-843d-662c71fdc38a" />
 
 ---
